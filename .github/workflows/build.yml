@@ -1,0 +1,34 @@
+name: Build Release
+
+on:
+  push:
+    tags: ["v*"]        # push a tag like v1.3.2 to build & publish a release
+  workflow_dispatch:    # or run manually from the Actions tab
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt pyinstaller
+
+      - name: Build portable exe
+        run: pyinstaller --noconsole --onefile --clean --name "TirdadFlow" --collect-binaries _sounddevice_data --collect-submodules sounddevice whisper_flow.py
+
+      - name: Generate SHA256 checksums
+        working-directory: dist
+        run: (Get-FileHash .\TirdadFlow.exe -Algorithm SHA256).Hash + "  TirdadFlow.exe" | Out-File -Encoding utf8 SHA256SUMS.txt
+
+      - name: Publish release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/TirdadFlow.exe
+            dist/SHA256SUMS.txt
+          generate_release_notes: true
