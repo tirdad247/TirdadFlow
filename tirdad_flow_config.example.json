@@ -1,0 +1,18 @@
+{
+    "provider": "groq",
+    "keys": {
+        "groq": "",
+        "gemini": ""
+    },
+    "models": {
+        "groq": "whisper-large-v3-turbo",
+        "gemini": "gemini-flash-latest"
+    },
+    "hotkey": "f9",
+    "speech_lang": "auto",
+    "ui_language": "en",
+    "audio_device": null,
+    "startup": false,
+    "show_floating_widget": false,
+    "auto_provider_failover": true
+}

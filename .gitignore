@@ -1,0 +1,25 @@
+# ============================================
+# TirdadFlow .gitignore
+# ============================================
+
+# --- SECRETS & LOCAL STATE - NEVER COMMIT ---
+# The config file contains your API keys in plaintext (portable by design).
+tirdad_flow_config.json
+*.log
+
+# --- Python ---
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+venv/
+
+# --- Build artifacts ---
+build/
+dist/
+*.spec
+
+# --- OS junk ---
+Thumbs.db
+.DS_Store
